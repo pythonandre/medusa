@@ -1,8 +1,6 @@
 let transform = 1;
 
 setInterval(() => {
-  let r = (180 * pow(abs(sin(frameCount * 15)), 0.1) + 225) * frameCount / 80;
-
   if (transform >= 0) {
     transform -= 0.05;
   }
@@ -24,6 +22,7 @@ function draw() {
   orbitControl(4, 4); // 3D mouse control
   rotateX(55);
 
+  // Draw the jellyfish points
   for (let i = 0; i < 60; i += 1) {
     beginShape(POINTS);
     for (let j = 0; j < 360; j += 2) {
@@ -38,7 +37,29 @@ function draw() {
     }
     endShape();
   }
+
+  translate(-150, -100);
+  rotateY(-90)
+
+  beginShape()
+  // Draw the sinusoidal wave points
+  for (let i = 0; i < 359; i += 1) {
+    let y = map(i, 0, 359, 0, 1080);
+    let x = sin(i) * 1000;
+
+    // Adjust the x-coordinate to make the wave move to the right
+    x += frameCount; // You can adjust the speed by changing the increment value
+
+    // Reset x-coordinate when it goes beyond the canvas width
+    if (x > width) {
+      x = 0;
+    }
+
+    point(x, y);
+  }
+  endShape()
 }
+
 
 function formadeMedusa(A, r, a, b, transform) {
   return A * pow(Math.E, -b * pow(abs(r), 1.9)) * pow(abs(r), a) * transform;
