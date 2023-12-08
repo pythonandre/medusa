@@ -9,7 +9,7 @@ setInterval(() => {
   if (transform <= 0) {
     transform += 1;
   }
-}, 100);
+}, 55);
 
 function setup() {
   createCanvas(1920, 1080, WEBGL);
